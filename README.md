@@ -62,6 +62,7 @@ A new Flutter project for the simple E_commerce application.
      Product_Details_Page:
      ![image alt](https://github.com/anjitharajan/Ecommerce_App/blob/1d855b90589ae72260aa68660eaae47e27ea46c7/Screenshot%20(10).png)
      Cart_Page:
+     ![image alt](https://github.com/anjitharajan/Ecommerce_App/blob/b6c1bb0f5cf11bb4f88dcce5e15d79effdbb1189/Screenshot%20(11).png)
      Checkout_Page:
      ![image alt](https://github.com/anjitharajan/Ecommerce_App/blob/9419ef0cbdd1df3bacbd40dece53b0c5870abcb9/Screenshot%20(12).png)
      Order_Success_Page:
