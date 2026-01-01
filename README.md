@@ -51,6 +51,21 @@ A new Flutter project for the simple E_commerce application.
   Ideal for small to medium-scale apps.
 
  4. Screenshots for the E_Commerce_App
+     Signup_Page:
+     Login_Page:
+     Home_Page:
+     Product_list_Page:
+     Product_Details_Page:
+     Cart_Page:
+     Checkout_Page:
+     Order_Success_Page:
+     Profile_Page
+    
+     
+     
+     
+    
+    
      
 
 
