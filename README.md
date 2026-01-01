@@ -1,18 +1,56 @@
 
-# e_commerce_app
+# E_Commerce_App
 
-A new Flutter project.
+A new Flutter project for the simple E_commerce application.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+1. How to run the project
 
-A few resources to get you started if this is your first Flutter project:
+   Ensure the following are installed on your system:
+      Flutter SDK,
+      Android Studio or VS Code,
+      Android Emulator / Physical Device / Chrome Browser,
+      Git,
+      Firebase CLI,
+      FlutterFire CLI.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+   Verify Flutter and GitHub installation:
+      flutter doctor,
+      Clone the Repository(GitHub),
+      Install Dependencies,
+      Configure Firebase,
+      Run the Application.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+2. API Used
+
+  This project uses a free public REST API to fetch product and category data.
+  Get all products: 
+  (https://fakestoreapi.com/) ,
+  Get product categories:
+  (https://fakestoreapi.com/products/categories),
+  Get products by category: 
+  (https://fakestoreapi.com/products/category/{category}),
+  Get single product details: 
+  (https://fakestoreapi.com/products/{id}).
+
+  Purpose of API Usage:
+    Display product listings,
+    Display categories,
+    Show product details,
+    Enable search and filtering.
+
+
+3. Local Database Used
+
+ This project uses Hive, a lightweight and fast NoSQL local database for Flutter.
+  Fast and efficient,
+  Works offline,
+  Easy to integrate,
+  No native dependencies,
+  Ideal for small to medium-scale apps.
+
+ 4. Screenshots for the E_Commerce_App
+     
+
 
