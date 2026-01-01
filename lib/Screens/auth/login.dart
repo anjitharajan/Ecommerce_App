@@ -7,41 +7,48 @@ import 'package:hive/hive.dart';
 
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+   LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  //----- Text Controllers for email and password -----\\
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+//----- Loading State -----\\
   bool isLoading = false;
 
+//----- Login User Function -----\\
   Future<void> loginUser() async {
     setState(() {
       isLoading = true;
     });
 
     try {
-      // Firebase Login
+      //-----Firebase Login -----\\
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
 
-      // Save session locally using Hive
+      //------Saving session locally using Hive -----\\
       final userBox = Hive.box('userBox');
       userBox.put('isLoggedIn', true);
       userBox.put('email', emailController.text.trim());
 
-      // Navigate to Home
+      //-------Navigate to Homepage------\\
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const HomePage()),
+        MaterialPageRoute(builder: (_) =>  HomePage()),
       );
-    } on FirebaseAuthException catch (e) {
+    } 
+    
+    //----- Error Handling -----\\
+    on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(e.message ?? 'Login failed')),
       );
@@ -56,66 +63,66 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title:  Text('Login'),
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding:  EdgeInsets.all(20),
         child: Column(
           children: [
-            const SizedBox(height: 40),
+             SizedBox(height: 40),
 
-            // Email
+            //-------Email--------\\
             TextField(
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(
+              decoration:  InputDecoration(
                 labelText: 'Email',
                 border: OutlineInputBorder(),
               ),
             ),
 
-            const SizedBox(height: 20),
+             SizedBox(height: 20),
 
-            // Password
+            //--------Password--------\\
             TextField(
               controller: passwordController,
               obscureText: true,
-              decoration: const InputDecoration(
+              decoration:  InputDecoration(
                 labelText: 'Password',
                 border: OutlineInputBorder(),
               ),
             ),
 
-            const SizedBox(height: 30),
+             SizedBox(height: 30),
 
-            // Login Button
+            //------Login Button -------\\
             SizedBox(
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
                 onPressed: isLoading ? null : loginUser,
                 child: isLoading
-                    ? const CircularProgressIndicator(color: Colors.white)
-                    : const Text('Login'),
+                    ?  CircularProgressIndicator(color: Colors.white)
+                    :  Text('Login'),
               ),
             ),
 
-            const SizedBox(height: 20),
+             SizedBox(height: 20),
 
-            // Navigate to Signup
+            //-------Navigate to Signup--------\\
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("Don't have an account?"),
+                 Text("Don't have an account?"),
                 TextButton(
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (_) => const SignupPage()),
+                      MaterialPageRoute(builder: (_) =>  SignupPage()),
                     );
                   },
-                  child: const Text('Sign Up'),
+                  child:  Text('Sign Up'),
                 )
               ],
             )

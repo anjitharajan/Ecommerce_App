@@ -12,8 +12,11 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+
+  //------- Hive Cart Box -------\\
   final cartBox = Hive.box('cartBox');
 
+//------- Calculate Total Price -------\\
   double get totalPrice {
     double total = 0;
     for (var item in cartBox.values) {
@@ -22,6 +25,7 @@ class _CartPageState extends State<CartPage> {
     return total;
   }
 
+  //------- Increase/Decrease Quantity -------\\
   void increaseQty(dynamic key) {
     var item = cartBox.get(key);
     item['quantity'] += 1;
@@ -29,6 +33,7 @@ class _CartPageState extends State<CartPage> {
     setState(() {});
   }
 
+//------- Decrease Quantity also removes item if qty is 0 -------\\
   void decreaseQty(dynamic key) {
     var item = cartBox.get(key);
     if (item['quantity'] > 1) {
@@ -101,7 +106,7 @@ class _CartPageState extends State<CartPage> {
                 ),
               ),
 
-              // 💲 Total & Checkout
+              //------ Total & Checkout-----\\
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
@@ -118,6 +123,8 @@ class _CartPageState extends State<CartPage> {
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         Text(
+
+                          //------- Display Total Price -------\\
                           "\$${totalPrice.toStringAsFixed(2)}",
                           style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
@@ -129,6 +136,8 @@ class _CartPageState extends State<CartPage> {
                       width: double.infinity,
                       height: 50,
                       child: ElevatedButton(
+
+                        //------- Navigate to Checkout Page -------\\
                         onPressed: () {
                           Navigator.push(
                             context,

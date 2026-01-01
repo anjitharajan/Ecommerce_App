@@ -1,19 +1,19 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-
 import '../product/product_list_page.dart';
 import '../cart/cart_page.dart';
 import '../profile/profile_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+   HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  int remainingSeconds = 300; // 5 minutes offer
+  //-----5 minute countdown-----\\
+  int remainingSeconds = 300; 
   Timer? timer;
 
   @override
@@ -22,8 +22,9 @@ class _HomePageState extends State<HomePage> {
     startCountdown();
   }
 
+//------- Countdown Timer -------\\
   void startCountdown() {
-    timer = Timer.periodic(const Duration(seconds: 1), (t) {
+    timer = Timer.periodic( Duration(seconds: 1), (t) {
       if (remainingSeconds > 0) {
         setState(() {
           remainingSeconds--;
@@ -34,12 +35,12 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+//------- Dispose Timer -------\\
   @override
   void dispose() {
     timer?.cancel();
     super.dispose();
   }
-
   String get timeText {
     final minutes = remainingSeconds ~/ 60;
     final seconds = remainingSeconds % 60;
@@ -50,14 +51,16 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('E-Commerce'),
+        title:  Text('E-Commerce'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.shopping_cart),
+            icon:  Icon(Icons.shopping_cart),
+
+            //------- Navigate to Cart Page -------\\
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const CartPage()),
+                MaterialPageRoute(builder: (_) =>  CartPage()),
               );
             },
           )
@@ -65,12 +68,12 @@ class _HomePageState extends State<HomePage> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding:  EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
-              // 🔶 Banner
+              //------ Banner -------\\
               Container(
                 width: double.infinity,
                 height: 150,
@@ -78,24 +81,24 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.orange,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Center(
+                child:  Center(
                   child: Text(
                     'Big Sale!\nUp to 50% OFF',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 24,
+                      fontSize: 28,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
               ),
 
-              const SizedBox(height: 20),
+               SizedBox(height: 20),
 
-              // ⏱ Limited Time Offer
+              //----- Limited Time Offer-------\\
               Container(
-                padding: const EdgeInsets.all(16),
+                padding:  EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   color: Colors.red.shade50,
                   borderRadius: BorderRadius.circular(10),
@@ -103,13 +106,13 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                     Text(
                       'Limited Time Offer',
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       timeText,
-                      style: const TextStyle(
+                      style:  TextStyle(
                         fontSize: 16,
                         color: Colors.red,
                         fontWeight: FontWeight.bold,
@@ -119,16 +122,17 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
 
-              const SizedBox(height: 20),
+               SizedBox(height: 20),
 
-              // 📂 Categories
-              const Text(
+              //----- Categories -------\\
+               Text(
                 'Categories',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
 
-              const SizedBox(height: 10),
+               SizedBox(height: 10),
 
+             //------- Category List -------\\
               SizedBox(
                 height: 40,
                 child: ListView(
@@ -142,44 +146,46 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
 
-              const SizedBox(height: 30),
+               SizedBox(height: 30),
 
-              // ⭐ Featured Products
-              const Text(
+              //------- Featured Products-------\\
+               Text(
                 'Featured Products',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
 
-              const SizedBox(height: 10),
+               SizedBox(height: 10),
 
               SizedBox(
                 width: double.infinity,
                 height: 50,
+                //------ View Products -------\\
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (_) => const ProductListPage()),
+                      MaterialPageRoute(builder: (_) =>  ProductListPage()),
                     );
                   },
-                  child: const Text('View Products'),
+                  child:  Text('View Products'),
                 ),
               ),
 
-              const SizedBox(height: 20),
+               SizedBox(height: 20),
 
-              // 👤 Profile
+              //---- Profile----\\
               SizedBox(
                 width: double.infinity,
                 height: 50,
+                //------ My Profile Navigation -------\\
                 child: OutlinedButton(
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (_) => const ProfilePage()),
+                      MaterialPageRoute(builder: (_) =>  ProfilePage()),
                     );
                   },
-                  child: const Text('My Profile'),
+                  child:  Text('My Profile'),
                 ),
               ),
             ],
@@ -189,9 +195,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+//------- Category Chip Widget -------\\
   Widget categoryChip(String title) {
     return Container(
-      margin: const EdgeInsets.only(right: 10),
+      margin:  EdgeInsets.only(right: 10),
       child: Chip(
         label: Text(title),
         backgroundColor: Colors.grey.shade200,

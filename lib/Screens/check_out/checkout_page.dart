@@ -7,14 +7,18 @@ import '../order/order_success_page.dart';
 class CheckoutPage extends StatelessWidget {
   final double totalAmount;
 
-  const CheckoutPage({Key? key, required this.totalAmount}) : super(key: key);
+   CheckoutPage({Key? key, required this.totalAmount}) : super(key: key);
 
   void placeOrder(BuildContext context) {
+
+    //------- Hive Boxes -------\\
     final cartBox = Hive.box('cartBox');
     final orderBox = Hive.box('orderBox');
 
-    final orderId = const Uuid().v4();
+//------- Generate Unique Order ID -------\\
+    final orderId =  Uuid().v4();
 
+//------- Prepare Order Items -------\\
     final orderItems = cartBox.values.toList();
 
     orderBox.put(orderId, {
@@ -24,12 +28,14 @@ class CheckoutPage extends StatelessWidget {
       'items': orderItems,
     });
 
+//------- Clear Cart after placing order -------\\
     cartBox.clear();
 
+//------- Navigate to Order Success Page -------\\
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (_) => const OrderSuccessPage(),
+        builder: (_) =>  OrderSuccessPage(),
       ),
     );
   }
@@ -40,11 +46,13 @@ class CheckoutPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Checkout'),
+        title:  Text('Checkout'),
       ),
       body: Column(
         children: [
           Expanded(
+
+            //------- List of Cart Items -------\\
             child: ListView.builder(
               itemCount: cartBox.length,
               itemBuilder: (context, index) {
@@ -69,34 +77,38 @@ class CheckoutPage extends StatelessWidget {
             ),
           ),
 
-          // 💲 Total + Place Order
+          //----- Total andPlace Order-------\\
           Container(
-            padding: const EdgeInsets.all(16),
+            padding:  EdgeInsets.all(16),
             decoration: BoxDecoration(color: Colors.grey.shade100),
             child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                     Text(
                       'Total Amount',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     Text(
+
+                      //------- Display Total Amount -------\\
                       "\$${totalAmount.toStringAsFixed(2)}",
                       style:
-                          const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
-                const SizedBox(height: 15),
+                 SizedBox(height: 15),
                 SizedBox(
                   width: double.infinity,
                   height: 50,
+
+                  //------- Place Order Button -------\\
                   child: ElevatedButton(
                     onPressed: () => placeOrder(context),
-                    child: const Text('Place Order'),
+                    child:  Text('Place Order'),
                   ),
                 ),
               ],

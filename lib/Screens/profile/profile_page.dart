@@ -4,37 +4,46 @@ import 'package:hive/hive.dart';
 
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+   ProfilePage({Key? key}) : super(key: key);
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
+  //------- Controllers for Profile Fields -------\\
   final nameController = TextEditingController();
   final emailController = TextEditingController();
 
+// ------ Hive User Box -------\\
   final userBox = Hive.box('userBox');
 
   @override
+
+  //------- Initialize Profile Data -------\\
   void initState() {
     super.initState();
     nameController.text = userBox.get('name', defaultValue: '');
     emailController.text = userBox.get('email', defaultValue: '');
   }
 
+//------- Update Profile Function -------\\
   void updateProfile() {
     userBox.put('name', nameController.text.trim());
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Profile updated successfully')),
+       SnackBar(content: Text('Profile updated successfully')),
     );
   }
 
+//------- Logout Function -------\\
   void logout() {
-    userBox.clear(); // Clear session
+    userBox.clear(); //<<<-----Clear session-----\\
     Navigator.pushAndRemoveUntil(
+
+      //------- Navigate to Login Page -------\\
       context,
-      MaterialPageRoute(builder: (_) => const LoginPage()),
+      MaterialPageRoute(builder: (_) =>  LoginPage()),
       (route) => false,
     );
   }
@@ -43,56 +52,56 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        title:  Text('Profile'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding:  EdgeInsets.all(20),
         child: Column(
           children: [
-            const SizedBox(height: 20),
+             SizedBox(height: 20),
 
-            // Name
+            //----Name----\\
             TextField(
               controller: nameController,
-              decoration: const InputDecoration(
+              decoration:  InputDecoration(
                 labelText: 'Full Name',
                 border: OutlineInputBorder(),
               ),
             ),
 
-            const SizedBox(height: 20),
+             SizedBox(height: 20),
 
-            // Email (Read-only)
+            //-----Email-----\\
             TextField(
               controller: emailController,
               readOnly: true,
-              decoration: const InputDecoration(
+              decoration:  InputDecoration(
                 labelText: 'Email',
                 border: OutlineInputBorder(),
               ),
             ),
 
-            const SizedBox(height: 30),
+             SizedBox(height: 30),
 
-            // Update Profile Button
+            //------Update Profile Button-------\\
             SizedBox(
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
                 onPressed: updateProfile,
-                child: const Text('Update Profile'),
+                child:  Text('Update Profile'),
               ),
             ),
 
-            const SizedBox(height: 20),
+             SizedBox(height: 20),
 
-            // Logout Button
+            //-----Logout Button-----\\
             SizedBox(
               width: double.infinity,
               height: 50,
               child: OutlinedButton(
                 onPressed: logout,
-                child: const Text('Logout'),
+                child:  Text('Logout'),
               ),
             ),
           ],

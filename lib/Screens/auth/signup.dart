@@ -6,43 +6,50 @@ import 'package:hive/hive.dart';
 
 
 class SignupPage extends StatefulWidget {
-  const SignupPage({Key? key}) : super(key: key);
+   SignupPage({Key? key}) : super(key: key);
 
   @override
   State<SignupPage> createState() => _SignupPageState();
 }
 
 class _SignupPageState extends State<SignupPage> {
+
+  //------- Controllers for sgnup fields -------\\
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+//------- Loading State -------\\
   bool isLoading = false;
 
+//------- Signup Function -------\\
   Future<void> signupUser() async {
     setState(() {
       isLoading = true;
     });
 
     try {
-      // Firebase Signup
+      // ------Firebase Signup-------\\
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
 
-      // Save user data locally using Hive (Local NoSQL DB)
+      //-------- Save user data locally using Hive (Local NoSQL DB)-------\\
       final userBox = Hive.box('userBox');
       userBox.put('isLoggedIn', true);
       userBox.put('name', nameController.text.trim());
       userBox.put('email', emailController.text.trim());
 
-      // Navigate to Home
+      //-----Navigate to Home-------\\
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const HomePage()),
+        MaterialPageRoute(builder: (_) =>  HomePage()),
       );
-    } on FirebaseAuthException catch (e) {
+    }
+
+    //------- Handle Signup Errors -------\\
+     on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(e.message ?? 'Signup failed')),
       );
@@ -57,71 +64,71 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign Up'),
+        title:  Text('Sign Up'),
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding:  EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: 30),
+               SizedBox(height: 30),
 
-              // Name
+              //---- Name----\\
               TextField(
                 controller: nameController,
-                decoration: const InputDecoration(
+                decoration:  InputDecoration(
                   labelText: 'Full Name',
                   border: OutlineInputBorder(),
                 ),
               ),
 
-              const SizedBox(height: 20),
+               SizedBox(height: 20),
 
-              // Email
+              //----Email----\\
               TextField(
                 controller: emailController,
                 keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
+                decoration:  InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(),
                 ),
               ),
 
-              const SizedBox(height: 20),
+               SizedBox(height: 20),
 
-              // Password
+              //-----Password-----\\
               TextField(
                 controller: passwordController,
                 obscureText: true,
-                decoration: const InputDecoration(
+                decoration:  InputDecoration(
                   labelText: 'Password',
                   border: OutlineInputBorder(),
                 ),
               ),
 
-              const SizedBox(height: 30),
+               SizedBox(height: 30),
 
-              // Signup Button
+              //-----Signup Button-----\\
               SizedBox(
                 width: double.infinity,
                 height: 50,
                 child: ElevatedButton(
                   onPressed: isLoading ? null : signupUser,
                   child: isLoading
-                      ? const CircularProgressIndicator(color: Colors.white)
-                      : const Text('Create Account'),
+                      ?  CircularProgressIndicator(color: Colors.white)
+                      :  Text('Create Account'),
                 ),
               ),
 
-              const SizedBox(height: 20),
+               SizedBox(height: 20),
 
-              // Back to Login
+              //-----Back to Login-----\\
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text('Already have an account? Login'),
+                child:  Text('Already have an account? Login'),
               )
             ],
           ),

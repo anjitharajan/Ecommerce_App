@@ -7,6 +7,8 @@ class OrderSummaryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    //------- Hive Order Box -------\\
     final orderBox = Hive.box('orderBox');
 
     return Scaffold(
@@ -14,6 +16,8 @@ class OrderSummaryPage extends StatelessWidget {
         title: const Text('Order History'),
       ),
       body: ValueListenableBuilder(
+
+        //------- Listen to Order Box Changes -------\\
         valueListenable: orderBox.listenable(),
         builder: (context, Box box, _) {
           if (box.isEmpty) {
@@ -22,7 +26,8 @@ class OrderSummaryPage extends StatelessWidget {
             );
           }
 
-          final orders = box.values.toList().reversed.toList(); // latest first
+//------- List of Orders -------\\
+          final orders = box.values.toList().reversed.toList(); 
 
           return ListView.builder(
             itemCount: orders.length,
@@ -30,6 +35,8 @@ class OrderSummaryPage extends StatelessWidget {
               final order = orders[index];
 
               return Card(
+
+                //------- Order Summary Tile -------\\
                 margin:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 child: ExpansionTile(

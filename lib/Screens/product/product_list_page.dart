@@ -11,12 +11,16 @@ class ProductListPage extends StatefulWidget {
 }
 
 class _ProductListPageState extends State<ProductListPage> {
+
+  //------- Product Lists -------\\
   List allProducts = [];
   List filteredProducts = [];
   bool isLoading = true;
 
+//------- Search Controller -------\\
   final TextEditingController searchController = TextEditingController();
 
+//------- Fetch Products from free API -------\\
   @override
   void initState() {
     super.initState();
@@ -24,6 +28,8 @@ class _ProductListPageState extends State<ProductListPage> {
   }
 
   Future<void> fetchProducts() async {
+
+    //------- Fetching Products -------\\
     final response =
         await http.get(Uri.parse('https://fakestoreapi.com/products'));
 
@@ -32,6 +38,8 @@ class _ProductListPageState extends State<ProductListPage> {
     isLoading = false;
     setState(() {});
   }
+
+  //------- Search Functionality -------\\
 
   void searchProduct(String query) {
     final result = allProducts.where((product) {
@@ -54,7 +62,7 @@ class _ProductListPageState extends State<ProductListPage> {
           ? const Center(child: CircularProgressIndicator())
           : Column(
               children: [
-                // 🔍 Search Bar
+                //----- Search Bar-----\\
                 Padding(
                   padding: const EdgeInsets.all(12),
                   child: TextField(
@@ -68,7 +76,7 @@ class _ProductListPageState extends State<ProductListPage> {
                   ),
                 ),
 
-                // 📦 Product List
+                //------Product List-------\\
                 Expanded(
                   child: ListView.builder(
                     itemCount: filteredProducts.length,
@@ -76,6 +84,8 @@ class _ProductListPageState extends State<ProductListPage> {
                       final product = filteredProducts[index];
 
                       return Card(
+
+                        //------- Product Item -------\\
                         margin: const EdgeInsets.symmetric(
                             horizontal: 12, vertical: 6),
                         child: ListTile(
@@ -94,6 +104,8 @@ class _ProductListPageState extends State<ProductListPage> {
                           trailing:
                               const Icon(Icons.arrow_forward_ios, size: 16),
                           onTap: () {
+
+                            //------- Navigate to Product Details Page -------\\
                             Navigator.push(
                               context,
                               MaterialPageRoute(

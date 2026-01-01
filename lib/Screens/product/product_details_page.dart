@@ -7,14 +7,16 @@ class ProductDetailPage extends StatelessWidget {
   const ProductDetailPage({Key? key, required this.product}) : super(key: key);
 
   void addToCart(BuildContext context) {
+    //------- Hive Cart Box -------\\
     final cartBox = Hive.box('cartBox');
 
-    // Check if product already exists in cart
+    //-----Checking for product already exists in cart------\\
     if (cartBox.containsKey(product['id'])) {
       var item = cartBox.get(product['id']);
       item['quantity'] += 1;
       cartBox.put(product['id'], item);
     } else {
+      //------- Add New Product to Cart -------\\
       cartBox.put(product['id'], {
         'id': product['id'],
         'title': product['title'],
@@ -40,7 +42,7 @@ class ProductDetailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 🖼 Product Image
+            //------ Product Image-------\\
             Center(
               child: Image.network(
                 product['image'],
@@ -51,7 +53,7 @@ class ProductDetailPage extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // 🏷 Title
+            //----- Title-------\\
             Text(
               product['title'],
               style: const TextStyle(
@@ -62,7 +64,7 @@ class ProductDetailPage extends StatelessWidget {
 
             const SizedBox(height: 10),
 
-            // 💲 Price
+            //----- Price-----\\
             Text(
               "\$${product['price']}",
               style: const TextStyle(
@@ -74,7 +76,7 @@ class ProductDetailPage extends StatelessWidget {
 
             const SizedBox(height: 10),
 
-            // ⭐ Rating (optional display)
+            //-----Rating -----\\
             Row(
               children: [
                 const Icon(Icons.star, color: Colors.orange, size: 20),
@@ -89,7 +91,7 @@ class ProductDetailPage extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // 📝 Description
+            //----- Description-------\\
             const Text(
               'Description',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -102,7 +104,7 @@ class ProductDetailPage extends StatelessWidget {
 
             const SizedBox(height: 30),
 
-            // 🛒 Add to Cart Button
+            //----- Add to Cart Button-------\\
             SizedBox(
               width: double.infinity,
               height: 50,
