@@ -54,6 +54,7 @@ A new Flutter project for the simple E_commerce application.
      Signup_Page:
     ![image alt](https://github.com/anjitharajan/Ecommerce_App/blob/baefdfe1ce54a084816028cbe36a9b67c17b6971/Screenshot%20(15).png)
      Login_Page:
+    ![image alt](https://github.com/anjitharajan/Ecommerce_App/blob/34a56a3ce6c0783d08ee8f5e67799b962d4b5df5/Screenshot%20(16).png)
      Home_Page:
      Product_list_Page:
      Product_Details_Page:
